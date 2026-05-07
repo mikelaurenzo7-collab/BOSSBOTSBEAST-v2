@@ -2,56 +2,86 @@
 
 import React, { useState } from 'react';
 
-interface Beast {
+interface Bot {
   name: string;
   sigil: string;
   provider: string;
   status: 'connected' | 'disconnected' | 'expiring';
   capabilities: string[];
   backstory: string;
+  category: string;
 }
 
-const beasts: Beast[] = [
+const bots: Bot[] = [
   {
-    name: 'MetaBeast',
+    name: 'MetaBot',
     sigil: '🔥',
     provider: 'meta',
     status: 'connected',
-    capabilities: ['Post to Pages', 'Manage Meta Ads', 'Access Business Insights', 'Control Instagram via Meta', 'Audience targeting'],
-    backstory: 'The MetaBeast commands the entire Meta ecosystem — Facebook Pages, Business Manager, Instagram Business, and advertising empires through the Graph API. It is the sovereign ruler of paid reach and content distribution.'
+    capabilities: ['Post to Pages', 'Manage Meta Ads', 'Business Insights', 'Instagram Control', 'Audience Targeting', 'Reels Publishing'],
+    backstory: 'MetaBot commands the entire Meta ecosystem — Facebook Pages, Business Manager, Instagram Business, and advertising empires through the Graph API.',
+    category: 'Social'
   },
   {
-    name: 'InstagramBeast',
+    name: 'InstagramBot',
     sigil: '📸',
     provider: 'instagram',
     status: 'disconnected',
-    capabilities: ['Publish Reels & Stories', 'Manage Comments', 'Access Insights', 'Content Calendar', 'Audience Insights'],
-    backstory: 'InstagramBeast is the master of visual empires. It publishes, analyzes, and optimizes content across the platform with surgical precision.'
+    capabilities: ['Publish Reels & Stories', 'Manage Comments', 'Insights & Analytics', 'Content Calendar', 'Hashtag Strategy', 'Audience Growth'],
+    backstory: 'InstagramBot is the master of visual empires. It publishes, analyzes, and optimizes content across the platform with surgical precision.',
+    category: 'Social'
+  },
+  {
+    name: 'NotionBot',
+    sigil: '📝',
+    provider: 'notion',
+    status: 'disconnected',
+    capabilities: ['Database Sync', 'Page Creation', 'AI Writing Assistant', 'Task Automation', 'Knowledge Base Search'],
+    backstory: 'NotionBot turns your Notion workspace into an autonomous knowledge engine that builds, organizes, and retrieves information for you.',
+    category: 'Productivity'
+  },
+  {
+    name: 'SlackBot',
+    sigil: '💬',
+    provider: 'slack',
+    status: 'connected',
+    capabilities: ['Channel Summaries', 'Smart Replies', 'Meeting Notes', 'Workflow Triggers', 'Team Polls & Alerts'],
+    backstory: 'SlackBot lives in your workspace, surfaces the signal from the noise, and executes routine tasks so your team can focus on high-leverage work.',
+    category: 'Communication'
+  },
+  {
+    name: 'LinearBot',
+    sigil: '📈',
+    provider: 'linear',
+    status: 'disconnected',
+    capabilities: ['Issue Creation', 'Roadmap Sync', 'Sprint Planning', 'Bug Triage', 'Release Notes'],
+    backstory: 'LinearBot keeps your product development machine running at peak velocity — triaging issues, planning sprints, and keeping everyone aligned.',
+    category: 'Product'
   }
 ];
 
-export default function BeastDashboard() {
-  const [selectedBeast, setSelectedBeast] = useState<Beast | null>(null);
+export default function BeastBotsDashboard() {
+  const [selectedBot, setSelectedBot] = useState<Bot | null>(null);
   const [showModal, setShowModal] = useState(false);
   const [oauthStep, setOauthStep] = useState(0);
-  const [connectedBeasts, setConnectedBeasts] = useState<Record<string, boolean>>({
-    MetaBeast: true,
-    InstagramBeast: false,
+  const [connectedBots, setConnectedBots] = useState<Record<string, boolean>>({
+    MetaBot: true,
+    SlackBot: true,
   });
 
-  const connectBeast = (beast: Beast) => {
-    setSelectedBeast(beast);
+  const connectBot = (bot: Bot) => {
+    setSelectedBot(bot);
     setShowModal(true);
     setOauthStep(0);
   };
 
   const simulateOAuth = () => {
     const steps = [
-      'Redirecting to provider OAuth...',
-      'User grants permissions...',
-      'Exchanging code for tokens...',
-      'Storing encrypted tokens in vault...',
-      'Beast awakened successfully!'
+      'Redirecting to secure OAuth provider...',
+      `Requesting scopes: ${selectedBot?.capabilities.slice(0, 2).join(' + ')}...`,
+      'Exchanging code for access & refresh tokens...',
+      'Encrypting tokens with AES-256 and storing in private vault...',
+      `${selectedBot?.name} is now live in your swarm.`
     ];
     let step = 0;
     const interval = setInterval(() => {
@@ -60,80 +90,139 @@ export default function BeastDashboard() {
       if (step >= steps.length - 1) {
         clearInterval(interval);
         setTimeout(() => {
-          if (selectedBeast) {
-            setConnectedBeasts(prev => ({ ...prev, [selectedBeast.name]: true }));
+          if (selectedBot) {
+            setConnectedBots(prev => ({ ...prev, [selectedBot.name]: true }));
           }
           setShowModal(false);
-          alert(`${selectedBeast?.name} connected successfully! Token stored securely.`);
-        }, 800);
+          const successMsg = document.createElement('div');
+          successMsg.className = 'fixed bottom-8 right-8 bg-emerald-600 text-white px-8 py-4 rounded-2xl shadow-2xl flex items-center gap-3 z-[200]';
+          successMsg.innerHTML = `✅ ${selectedBot?.name} connected successfully. Welcome to BEAST_BOTS.`;
+          document.body.appendChild(successMsg);
+          setTimeout(() => successMsg.remove(), 2800);
+        }, 600);
       }
-    }, 700);
+    }, 650);
   };
+
+  const categories = Array.from(new Set(bots.map(b => b.category)));
 
   return (
     <div className="min-h-screen bg-zinc-950 text-white overflow-hidden">
-      <nav className="border-b border-zinc-800 bg-zinc-950/90 backdrop-blur-xl fixed w-full z-50">
+      {/* Top Navigation */}
+      <nav className="border-b border-zinc-800 bg-zinc-950/95 backdrop-blur-xl fixed w-full z-50">
         <div className="max-w-7xl mx-auto px-8 h-20 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <div className="text-4xl">🐲</div>
-            <div>
-              <div className="font-bold text-2xl tracking-[-1px]">BEASTOS</div>
-              <div className="text-[9px] text-zinc-500 -mt-1 tracking-[2px]">SOVEREIGN INTEGRATION SWARM v2</div>
+            <div className="flex items-center gap-3">
+              <div className="text-5xl">🐲</div>
+              <div>
+                <div className="font-bold text-3xl tracking-[-1.5px]">BEAST_BOTS</div>
+                <div className="text-[9px] text-emerald-500 -mt-1 tracking-[3px] font-mono">ONE BOT. ONE INTEGRATION. INFINITE LEVERAGE.</div>
+              </div>
             </div>
           </div>
-          <div className="flex items-center gap-3 text-sm">
-            <div className="px-4 py-1.5 bg-emerald-500/10 text-emerald-400 rounded-2xl flex items-center gap-2 text-xs font-mono">
-              <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></div>
-              SWARM ONLINE
+
+          <div className="flex items-center gap-4">
+            <div className="px-5 py-2 bg-zinc-900 border border-zinc-800 rounded-2xl text-sm flex items-center gap-2">
+              <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
+              <span className="font-mono text-emerald-400">{Object.keys(connectedBots).length} BOTS LIVE</span>
             </div>
-            <button className="px-5 py-2 border border-zinc-700 hover:bg-zinc-900 rounded-2xl text-sm font-medium transition-all">SWARM COMMANDER</button>
+            <button 
+              onClick={() => alert('Swarm Commander coming in next pass — multi-bot orchestration & workflows')}
+              className="px-6 py-2.5 border border-zinc-700 hover:bg-zinc-900 rounded-2xl text-sm font-medium transition-all"
+            >
+              SWARM COMMANDER
+            </button>
+            <div className="w-9 h-9 bg-zinc-800 rounded-full flex items-center justify-center text-lg">M</div>
           </div>
         </div>
       </nav>
 
-      <div className="pt-20 max-w-7xl mx-auto px-8 py-16">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-16">
-          <div>
-            <div className="uppercase tracking-[4px] text-xs text-zinc-500 mb-4">CHICAGO 2026 • MICHAEL'S EMPIRE</div>
-            <h1 className="text-[92px] leading-[82px] font-bold tracking-[-5.5px] bg-gradient-to-br from-white via-zinc-200 to-zinc-400 bg-clip-text text-transparent">
-              THE SWARM<br />AWAKENS
-            </h1>
-            <p className="mt-6 text-2xl text-zinc-400 max-w-lg">One Beast per integration.<br />All of them loyal only to you.</p>
-          </div>
-          <div className="text-right">
-            <div className="text-sm text-zinc-500 mb-1">INTEGRATIONS CONNECTED</div>
-            <div className="text-[92px] leading-none font-mono font-bold text-emerald-400 tabular-nums">02<span className="text-4xl align-super text-zinc-600">/32</span></div>
+      <div className="pt-20 max-w-7xl mx-auto px-8 py-20">
+        {/* Hero */}
+        <div className="max-w-4xl mb-16">
+          <div className="uppercase tracking-[4px] text-xs text-emerald-500 mb-4">CHICAGO 2026 • MICHAEL'S EMPIRE</div>
+          <h1 className="text-[92px] leading-[78px] font-bold tracking-[-5.5px] mb-6">
+            Every integration.<br />
+            <span className="bg-gradient-to-r from-white to-zinc-400 bg-clip-text text-transparent">One perfect bot.</span>
+          </h1>
+          <p className="text-2xl text-zinc-400 max-w-lg">BEAST_BOTS gives you a sovereign, autonomous agent for every tool you use. Named after the integration. Loyal only to you.</p>
+          
+          <div className="flex gap-4 mt-10">
+            <button 
+              onClick={() => document.getElementById('bots-grid')?.scrollIntoView({ behavior: 'smooth' })}
+              className="px-10 py-5 bg-white text-black font-bold text-sm tracking-wider rounded-3xl hover:bg-zinc-200 transition-all"
+            >
+              BROWSE THE SWARM
+            </button>
+            <button 
+              onClick={() => alert('Custom bot builder + OAuth app registration flow coming next pass')}
+              className="px-8 py-5 border border-zinc-700 hover:bg-zinc-900 rounded-3xl text-sm font-medium"
+            >
+              CREATE CUSTOM BOT
+            </button>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {beasts.map((beast, index) => {
-            const isConnected = connectedBeasts[beast.name];
+        {/* Stats Bar */}
+        <div className="flex flex-wrap gap-8 border-y border-zinc-800 py-8 mb-16 text-sm">
+          <div>
+            <div className="text-zinc-500">INTEGRATIONS SUPPORTED</div>
+            <div className="text-5xl font-mono font-bold text-white tabular-nums mt-1">32</div>
+          </div>
+          <div>
+            <div className="text-zinc-500">BOTS CURRENTLY LIVE</div>
+            <div className="text-5xl font-mono font-bold text-emerald-400 tabular-nums mt-1">{Object.keys(connectedBots).length}</div>
+          </div>
+          <div className="flex-1">
+            <div className="text-zinc-500 mb-3">CATEGORIES</div>
+            <div className="flex flex-wrap gap-2">
+              {categories.map(cat => (
+                <div key={cat} className="px-4 py-1 bg-zinc-900 rounded-full text-xs border border-zinc-800">{cat}</div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Bots Grid */}
+        <div id="bots-grid" className="mb-8 flex items-center justify-between">
+          <div>
+            <div className="text-sm uppercase tracking-[2px] text-zinc-500">THE SWARM</div>
+            <div className="text-4xl font-bold tracking-tight">Available Bots</div>
+          </div>
+          <div className="text-sm text-zinc-500">Click any bot to connect via OAuth</div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+          {bots.map((bot, index) => {
+            const isConnected = connectedBots[bot.name] || false;
             return (
-              <div key={index} className="group border border-zinc-800 bg-zinc-900/60 hover:border-zinc-700 rounded-3xl p-10 flex flex-col transition-all duration-300">
+              <div key={index} className="group border border-zinc-800 bg-zinc-900/60 hover:border-emerald-900/50 rounded-3xl p-9 flex flex-col transition-all duration-300 hover:-translate-y-1">
                 <div className="flex justify-between items-start mb-8">
-                  <div className="text-[92px] leading-none transition-transform group-hover:-rotate-12">{beast.sigil}</div>
-                  <div className={`px-5 py-1.5 text-xs font-mono tracking-widest self-start rounded-2xl ${isConnected ? 'bg-emerald-500/20 text-emerald-400' : 'bg-zinc-800 text-zinc-400'}`}>
-                    {isConnected ? 'CONNECTED' : 'DISCONNECTED'}
+                  <div className="text-[92px] leading-none transition-transform group-hover:scale-110 group-hover:-rotate-6">{bot.sigil}</div>
+                  <div className={`px-5 py-1.5 text-xs font-mono tracking-[1.5px] self-start rounded-2xl ${isConnected ? 'bg-emerald-500/20 text-emerald-400' : 'bg-zinc-800 text-zinc-400'}`}>
+                    {isConnected ? 'LIVE IN SWARM' : 'NOT CONNECTED'}
                   </div>
                 </div>
 
-                <div className="font-bold text-6xl tracking-[-2px] mb-4 pr-12">{beast.name}</div>
-                <div className="text-lg text-zinc-400 pr-8 mb-auto line-clamp-4">{beast.backstory}</div>
+                <div className="font-bold text-5xl tracking-[-1.5px] mb-3 pr-4">{bot.name}</div>
+                <div className="text-[13px] text-emerald-500 font-mono mb-6 tracking-widest">{bot.provider.toUpperCase()} • {bot.category.toUpperCase()}</div>
+
+                <div className="text-lg text-zinc-400 pr-4 mb-auto line-clamp-3">{bot.backstory}</div>
 
                 <div className="mt-10">
                   <div className="uppercase text-xs tracking-[2px] text-zinc-500 mb-4">NATIVE CAPABILITIES</div>
-                  <div className="flex flex-wrap gap-2 mb-10">
-                    {beast.capabilities.map((cap, i) => (
+                  <div className="flex flex-wrap gap-2 mb-10 min-h-[72px]">
+                    {bot.capabilities.slice(0, 4).map((cap, i) => (
                       <div key={i} className="text-sm px-5 py-2 bg-zinc-800 group-hover:bg-zinc-700 rounded-2xl transition-colors">{cap}</div>
                     ))}
+                    {bot.capabilities.length > 4 && <div className="text-sm px-5 py-2 bg-zinc-800 rounded-2xl text-zinc-400">+{bot.capabilities.length - 4} more</div>}
                   </div>
 
                   <button 
-                    onClick={() => connectBeast(beast)}
+                    onClick={() => connectBot(bot)}
                     className={`w-full py-5 rounded-3xl font-bold text-sm tracking-wider transition-all active:scale-[0.985] ${isConnected ? 'bg-zinc-800 hover:bg-zinc-700' : 'bg-white text-black hover:bg-zinc-200'}`}
                   >
-                    {isConnected ? 'MANAGE CONNECTION & TOKENS' : 'CONNECT VIA SECURE OAUTH'}
+                    {isConnected ? 'MANAGE TOKENS & SETTINGS' : 'CONNECT VIA OAUTH'}
                   </button>
                 </div>
               </div>
@@ -141,29 +230,29 @@ export default function BeastDashboard() {
           })}
         </div>
 
-        <div className="mt-24 text-center">
-          <div className="inline-flex items-center gap-2 text-xs text-zinc-500 bg-zinc-900 px-4 py-2 rounded-2xl">
-            All beasts use real OAuth 2.0 • Tokens encrypted at rest with AES-256 • Auto-refresh enabled
-          </div>
+        <div className="mt-20 text-center text-xs text-zinc-500 max-w-md mx-auto">
+          Every bot uses real OAuth 2.0 with automatic token refresh.<br />
+          All tokens are encrypted at rest. You stay in full control.
         </div>
       </div>
 
-      {showModal && selectedBeast && (
+      {/* OAuth Modal */}
+      {showModal && selectedBot && (
         <div className="fixed inset-0 bg-black/95 flex items-center justify-center z-[100] p-6" onClick={() => setShowModal(false)}>
-          <div className="bg-zinc-900 border border-zinc-700 rounded-3xl max-w-[420px] w-full overflow-hidden" onClick={e => e.stopPropagation()}>
+          <div className="bg-zinc-900 border border-zinc-700 rounded-3xl max-w-[440px] w-full overflow-hidden" onClick={e => e.stopPropagation()}>
             <div className="px-10 pt-10 pb-8 text-center border-b border-zinc-800">
-              <div className="text-[110px] mb-4 transition-transform" style={{ transform: oauthStep > 2 ? 'scale(1.1)' : 'scale(1)' }}>{selectedBeast.sigil}</div>
-              <div className="text-4xl font-bold tracking-tight mb-3">Connecting {selectedBeast.name}</div>
-              <div className="text-sm text-zinc-400">Secure OAuth 2.0 • One-time approval • Tokens encrypted</div>
+              <div className="text-[120px] mb-4 transition-transform" style={{ transform: oauthStep > 3 ? 'scale(1.15) rotate(6deg)' : 'scale(1)' }}>{selectedBot.sigil}</div>
+              <div className="text-4xl font-bold tracking-tight mb-2">Connecting {selectedBot.name}</div>
+              <div className="text-sm text-zinc-400">Secure OAuth 2.0 • One-time approval • AES-256 encrypted</div>
             </div>
 
             <div className="p-10 space-y-3">
               {[
-                'Opening secure OAuth window on provider...',
-                `Requesting scopes: ${selectedBeast.capabilities.slice(0, 2).join(' + ')}...`,
-                'Exchanging authorization code for access token...',
-                'Encrypting and storing tokens in private vault...',
-                'Beast fully awakened and ready for command.'
+                'Redirecting to official ' + selectedBot.provider + ' login...',
+                'Requesting permissions for: ' + selectedBot.capabilities.slice(0, 2).join(' + '),
+                'Exchanging authorization code for tokens...',
+                'Storing encrypted tokens in your private BEAST_BOTS vault...',
+                selectedBot.name + ' is now fully operational in your swarm.'
               ].map((text, i) => (
                 <div key={i} className={`flex gap-4 text-sm p-4 rounded-2xl transition-all ${oauthStep >= i ? 'bg-emerald-500/10 text-emerald-400' : 'text-zinc-500'}`}>
                   <div className={`mt-0.5 w-6 h-6 rounded-full flex-shrink-0 flex items-center justify-center text-xs font-mono ${oauthStep >= i ? 'bg-emerald-500 text-black' : 'bg-zinc-800'}`}>
@@ -180,13 +269,18 @@ export default function BeastDashboard() {
                 disabled={oauthStep > 0}
                 className="w-full py-5 bg-white hover:bg-zinc-200 active:bg-white text-black font-bold text-sm tracking-wider rounded-3xl transition-all disabled:opacity-60"
               >
-                {oauthStep > 0 ? 'AUTHORIZING WITH PROVIDER...' : 'AUTHORIZE WITH ' + selectedBeast.provider.toUpperCase()}
+                {oauthStep > 0 ? 'AUTHORIZING WITH ' + selectedBot.provider.toUpperCase() + '...' : 'AUTHORIZE WITH ' + selectedBot.provider.toUpperCase()}
               </button>
-              <div className="text-center text-[10px] text-zinc-500 mt-4">You will be redirected to the official provider login</div>
+              <div className="text-center text-[10px] text-zinc-500 mt-4">You will be redirected to the official {selectedBot.provider} authorization page</div>
             </div>
           </div>
         </div>
       )}
+
+      <footer className="border-t border-zinc-800 py-16 text-center text-xs text-zinc-500">
+        BEAST_BOTS • Chicago 2026 • Built for empire builders who refuse to be slaves to their tools<br />
+        <span className="text-emerald-600">32 integrations • 1 perfect bot each • Zero compromise</span>
+      </footer>
     </div>
   );
 }
