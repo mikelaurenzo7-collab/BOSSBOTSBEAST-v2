@@ -1,23 +1,27 @@
-import { MetaBeast } from '../beasts/MetaBeast';
-import { InstagramBeast } from '../beasts/InstagramBeast';
-// Import other beasts here
+import { OAuthIntegrationBeast } from '../beasts/base/OAuthIntegrationBeast';
 
-export type BeastType = 'MetaBeast' | 'InstagramBeast' | /* more */;
+// Dynamic registry for all Integration Beasts
+class BeastRegistry {
+  private beasts = new Map<string, OAuthIntegrationBeast>();
 
-export const BeastRegistry = {
-  MetaBeast,
-  InstagramBeast,
-  // ... more
-} as const;
+  register(beast: OAuthIntegrationBeast) {
+    this.beasts.set(beast.provider, beast);
+    console.log(`🐲 Registered ${beast.name} (${beast.provider})`);
+  }
 
-export type RegisteredBeast = typeof BeastRegistry[keyof typeof BeastRegistry];
+  getBeast(provider: string): OAuthIntegrationBeast | undefined {
+    return this.beasts.get(provider);
+  }
 
-export function getBeast(beastType: BeastType) {
-  return BeastRegistry[beastType];
+  getAllBeasts(): OAuthIntegrationBeast[] {
+    return Array.from(this.beasts.values());
+  }
+
+  getConnectedBeasts(): OAuthIntegrationBeast[] {
+    return this.getAllBeasts().filter(beast => beast.isConnected());
+  }
 }
 
-// High-leverage: Dynamic beast loading
-export async function getBeastInstance(beastType: BeastType, connectionId?: number) {
-  const BeastClass = getBeast(beastType);
-  return new BeastClass(connectionId);
-}
+export const beastRegistry = new BeastRegistry();
+
+export default beastRegistry;
