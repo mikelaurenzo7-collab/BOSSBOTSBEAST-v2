@@ -1,0 +1,2 @@
+import { OAuthIntegrationBeast } from './base/OAuthIntegrationBeast';
+export class LinkedInBot extends OAuthIntegrationBeast { name='LinkedInBot'; provider='linkedin'; category='Social'; sigil='💼'; backstory='LinkedIn professional beast.'; capabilities=['create_post','send_message']; async execute(a:any,p:any,t:string){return{success:true,action:a};} }

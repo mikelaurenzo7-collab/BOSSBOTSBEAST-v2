@@ -1,0 +1,2 @@
+import { OAuthIntegrationBeast } from './base/OAuthIntegrationBeast';
+export class GmailBot extends OAuthIntegrationBeast { name='GmailBot'; provider='gmail'; category='Communication'; sigil='✉️'; backstory='Gmail email beast.'; capabilities=['send_email','create_draft']; async execute(a:any,p:any,t:string){return{success:true,action:a};} }

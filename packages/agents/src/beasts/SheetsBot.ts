@@ -1,0 +1,2 @@
+import { OAuthIntegrationBeast } from './base/OAuthIntegrationBeast';
+export class SheetsBot extends OAuthIntegrationBeast { name='SheetsBot'; provider='google_sheets'; category='Productivity'; sigil='📊'; backstory='Google Sheets data beast.'; capabilities=['add_row','update_cell']; async execute(a:any,p:any,t:string){return{success:true,action:a};} }

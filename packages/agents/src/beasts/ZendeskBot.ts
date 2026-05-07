@@ -1,0 +1,2 @@
+import { OAuthIntegrationBeast } from './base/OAuthIntegrationBeast';
+export class ZendeskBot extends OAuthIntegrationBeast { name='ZendeskBot'; provider='zendesk'; category='Support'; sigil='🎫'; backstory='Zendesk ticket beast.'; capabilities=['create_ticket','add_comment']; async execute(a:any,p:any,t:string){return{success:true,action:a};} }

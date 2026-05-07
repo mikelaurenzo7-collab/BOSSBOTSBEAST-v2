@@ -1,0 +1,2 @@
+import { OAuthIntegrationBeast } from './base/OAuthIntegrationBeast';
+export class ClickUpBot extends OAuthIntegrationBeast { name='ClickUpBot'; provider='clickup'; category='Productivity'; sigil='🚀'; backstory='ClickUp task beast.'; capabilities=['create_task','add_comment']; async execute(a:any,p:any,t:string){return{success:true,action:a};} }

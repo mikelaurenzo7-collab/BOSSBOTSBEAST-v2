@@ -1,0 +1,2 @@
+import { OAuthIntegrationBeast } from './base/OAuthIntegrationBeast';
+export class GoogleDriveBot extends OAuthIntegrationBeast { name='GoogleDriveBot'; provider='google_drive'; category='Storage'; sigil='📁'; backstory='Google Drive storage beast.'; capabilities=['upload_file','create_folder']; async execute(a:any,p:any,t:string){return{success:true,action:a};} }

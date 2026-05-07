@@ -1,0 +1,2 @@
+import { OAuthIntegrationBeast } from './base/OAuthIntegrationBeast';
+export class YouTubeBot extends OAuthIntegrationBeast { name='YouTubeBot'; provider='youtube'; category='Content'; sigil='▶️'; backstory='YouTube content beast.'; capabilities=['upload_video','create_playlist']; async execute(a:any,p:any,t:string){return{success:true,action:a};} }

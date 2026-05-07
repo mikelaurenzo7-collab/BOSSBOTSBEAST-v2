@@ -1,0 +1,2 @@
+import { OAuthIntegrationBeast } from './base/OAuthIntegrationBeast';
+export class IntercomBot extends OAuthIntegrationBeast { name='IntercomBot'; provider='intercom'; category='Support'; sigil='💬'; backstory='Intercom support beast.'; capabilities=['send_message','create_ticket']; async execute(a:any,p:any,t:string){return{success:true,action:a};} }

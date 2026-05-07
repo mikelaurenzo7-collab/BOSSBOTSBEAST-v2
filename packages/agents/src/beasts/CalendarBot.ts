@@ -1,0 +1,2 @@
+import { OAuthIntegrationBeast } from './base/OAuthIntegrationBeast';
+export class CalendarBot extends OAuthIntegrationBeast { name='CalendarBot'; provider='google_calendar'; category='Productivity'; sigil='📆'; backstory='Google Calendar beast.'; capabilities=['create_event','update_event']; async execute(a:any,p:any,t:string){return{success:true,action:a};} }

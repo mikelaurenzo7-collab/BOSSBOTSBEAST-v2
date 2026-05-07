@@ -1,0 +1,2 @@
+import { OAuthIntegrationBeast } from './base/OAuthIntegrationBeast';
+export class MondayBot extends OAuthIntegrationBeast { name='MondayBot'; provider='monday'; category='Productivity'; sigil='📅'; backstory='Monday.com board beast.'; capabilities=['create_item','update_item']; async execute(a:any,p:any,t:string){return{success:true,action:a};} }

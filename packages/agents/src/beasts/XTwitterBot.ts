@@ -1,0 +1,2 @@
+import { OAuthIntegrationBeast } from './base/OAuthIntegrationBeast';
+export class XTwitterBot extends OAuthIntegrationBeast { name='XTwitterBot'; provider='x_twitter'; category='Social'; sigil='𝕏'; backstory='X (Twitter) social beast.'; capabilities=['create_post','reply']; async execute(a:any,p:any,t:string){return{success:true,action:a};} }

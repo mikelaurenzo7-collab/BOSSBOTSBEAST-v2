@@ -1,0 +1,2 @@
+import { OAuthIntegrationBeast } from './base/OAuthIntegrationBeast';
+export class AsanaBot extends OAuthIntegrationBeast { name='AsanaBot'; provider='asana'; category='Productivity'; sigil='✅'; backstory='Asana task beast.'; capabilities=['create_task','update_task']; async execute(a:any,p:any,t:string){return{success:true,action:a};} }

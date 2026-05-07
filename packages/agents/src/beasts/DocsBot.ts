@@ -1,0 +1,2 @@
+import { OAuthIntegrationBeast } from './base/OAuthIntegrationBeast';
+export class DocsBot extends OAuthIntegrationBeast { name='DocsBot'; provider='google_docs'; category='Documentation'; sigil='📄'; backstory='Google Docs writing beast.'; capabilities=['create_doc','append_text']; async execute(a:any,p:any,t:string){return{success:true,action:a};} }

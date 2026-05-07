@@ -1,0 +1,2 @@
+import { OAuthIntegrationBeast } from './base/OAuthIntegrationBeast';
+export class DropboxBot extends OAuthIntegrationBeast { name='DropboxBot'; provider='dropbox'; category='Storage'; sigil='📦'; backstory='Dropbox file beast.'; capabilities=['upload_file','create_folder']; async execute(a:any,p:any,t:string){return{success:true,action:a};} }

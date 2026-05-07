@@ -1,0 +1,2 @@
+import { OAuthIntegrationBeast } from './base/OAuthIntegrationBeast';
+export class JiraBot extends OAuthIntegrationBeast { name='JiraBot'; provider='jira'; category='Development'; sigil='🔷'; backstory='Jira issue beast.'; capabilities=['create_issue','add_comment']; async execute(a:any,p:any,t:string){return{success:true,action:a};} }

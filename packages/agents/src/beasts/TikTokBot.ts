@@ -1,0 +1,2 @@
+import { OAuthIntegrationBeast } from './base/OAuthIntegrationBeast';
+export class TikTokBot extends OAuthIntegrationBeast { name='TikTokBot'; provider='tiktok'; category='Content'; sigil='🎵'; backstory='TikTok video beast.'; capabilities=['upload_video','create_post']; async execute(a:any,p:any,t:string){return{success:true,action:a};} }

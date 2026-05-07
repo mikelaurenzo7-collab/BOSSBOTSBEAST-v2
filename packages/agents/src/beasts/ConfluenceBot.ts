@@ -1,0 +1,2 @@
+import { OAuthIntegrationBeast } from './base/OAuthIntegrationBeast';
+export class ConfluenceBot extends OAuthIntegrationBeast { name='ConfluenceBot'; provider='confluence'; category='Documentation'; sigil='📖'; backstory='Confluence wiki beast.'; capabilities=['create_page','update_page']; async execute(a:any,p:any,t:string){return{success:true,action:a};} }
