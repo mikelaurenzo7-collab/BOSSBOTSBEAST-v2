@@ -12,85 +12,25 @@ interface Bot {
   category: string;
   lastExecuted?: string;
   tokenExpires?: string;
+  adapterStatus?: 'live' | 'ready' | 'soon';
 }
 
 const initialBots: Bot[] = [
-  {
-    name: 'MetaBot',
-    sigil: '🔥',
-    provider: 'meta',
-    status: 'connected',
-    capabilities: ['Post to Pages', 'Manage Meta Ads', 'Business Insights', 'Instagram Control', 'Audience Targeting', 'Reels Publishing'],
-    backstory: 'MetaBot commands the entire Meta ecosystem — Facebook Pages, Business Manager, Instagram Business, and advertising empires through the Graph API.',
-    category: 'Social',
-    lastExecuted: '2m ago',
-    tokenExpires: 'in 59 days'
-  },
-  {
-    name: 'InstagramBot',
-    sigil: '📸',
-    provider: 'instagram',
-    status: 'disconnected',
-    capabilities: ['Publish Reels & Stories', 'Manage Comments', 'Insights & Analytics', 'Content Calendar', 'Hashtag Strategy', 'Audience Growth'],
-    backstory: 'InstagramBot is the master of visual empires. It publishes, analyzes, and optimizes content across the platform with surgical precision.',
-    category: 'Social'
-  },
-  {
-    name: 'NotionBot',
-    sigil: '📝',
-    provider: 'notion',
-    status: 'disconnected',
-    capabilities: ['Database Sync', 'Page Creation', 'AI Writing Assistant', 'Task Automation', 'Knowledge Base Search'],
-    backstory: 'NotionBot turns your Notion workspace into an autonomous knowledge engine that builds, organizes, and retrieves information for you.',
-    category: 'Productivity'
-  },
-  {
-    name: 'SlackBot',
-    sigil: '💬',
-    provider: 'slack',
-    status: 'connected',
-    capabilities: ['Channel Summaries', 'Smart Replies', 'Meeting Notes', 'Workflow Triggers', 'Team Polls & Alerts'],
-    backstory: 'SlackBot lives in your workspace, surfaces the signal from the noise, and executes routine tasks so your team can focus on high-leverage work.',
-    category: 'Communication',
-    lastExecuted: '14m ago',
-    tokenExpires: 'in 42 days'
-  },
-  {
-    name: 'LinearBot',
-    sigil: '📈',
-    provider: 'linear',
-    status: 'disconnected',
-    capabilities: ['Issue Creation', 'Roadmap Sync', 'Sprint Planning', 'Bug Triage', 'Release Notes'],
-    backstory: 'LinearBot keeps your product development machine running at peak velocity — triaging issues, planning sprints, and keeping everyone aligned.',
-    category: 'Product'
-  },
-  {
-    name: 'GitHubBot',
-    sigil: '🐙',
-    provider: 'github',
-    status: 'disconnected',
-    capabilities: ['Repo Sync', 'PR Automation', 'Issue Triage', 'Release Management', 'Code Review Summaries'],
-    backstory: 'GitHubBot lives in your repositories, automates routine tasks, and keeps your development velocity high.',
-    category: 'Development'
-  },
-  {
-    name: 'VercelBot',
-    sigil: '▲',
-    provider: 'vercel',
-    status: 'disconnected',
-    capabilities: ['Deployment Triggers', 'Preview URLs', 'Domain Management', 'Analytics Insights', 'Rollback Automation'],
-    backstory: 'VercelBot makes your frontend deployments effortless and gives you instant visibility into every release.',
-    category: 'Deployment'
-  },
-  {
-    name: 'StripeBot',
-    sigil: '💳',
-    provider: 'stripe',
-    status: 'disconnected',
-    capabilities: ['Payment Monitoring', 'Subscription Management', 'Invoice Automation', 'Revenue Analytics', 'Customer Portal Sync'],
-    backstory: 'StripeBot keeps your revenue engine running smoothly — tracking payments, managing subscriptions, and surfacing growth opportunities.',
-    category: 'Finance'
-  }
+  { name: 'MetaBot', sigil: '🔥', provider: 'meta', status: 'connected', capabilities: ['Post to Pages', 'Manage Meta Ads', 'Business Insights', 'Instagram Control', 'Audience Targeting', 'Reels Publishing'], backstory: 'MetaBot commands the entire Meta ecosystem — Facebook Pages, Business Manager, Instagram Business, and advertising empires through the Graph API.', category: 'Social', lastExecuted: '2m ago', tokenExpires: 'in 59 days', adapterStatus: 'live' },
+  { name: 'InstagramBot', sigil: '📸', provider: 'instagram', status: 'disconnected', capabilities: ['Publish Reels & Stories', 'Manage Comments', 'Insights & Analytics', 'Content Calendar', 'Hashtag Strategy', 'Audience Growth'], backstory: 'InstagramBot is the master of visual empires. It publishes, analyzes, and optimizes content across the platform with surgical precision.', category: 'Social', adapterStatus: 'live' },
+  { name: 'NotionBot', sigil: '📝', provider: 'notion', status: 'disconnected', capabilities: ['Database Sync', 'Page Creation', 'AI Writing Assistant', 'Task Automation', 'Knowledge Base Search'], backstory: 'NotionBot turns your Notion workspace into an autonomous knowledge engine that builds, organizes, and retrieves information for you.', category: 'Productivity', adapterStatus: 'live' },
+  { name: 'SlackBot', sigil: '💬', provider: 'slack', status: 'connected', capabilities: ['Channel Summaries', 'Smart Replies', 'Meeting Notes', 'Workflow Triggers', 'Team Polls & Alerts'], backstory: 'SlackBot lives in your workspace, surfaces the signal from the noise, and executes routine tasks so your team can focus on high-leverage work.', category: 'Communication', lastExecuted: '14m ago', tokenExpires: 'in 42 days', adapterStatus: 'live' },
+  { name: 'LinearBot', sigil: '📈', provider: 'linear', status: 'disconnected', capabilities: ['Issue Creation', 'Roadmap Sync', 'Sprint Planning', 'Bug Triage', 'Release Notes'], backstory: 'LinearBot keeps your product development machine running at peak velocity — triaging issues, planning sprints, and keeping everyone aligned.', category: 'Product', adapterStatus: 'live' },
+  { name: 'GitHubBot', sigil: '🐙', provider: 'github', status: 'disconnected', capabilities: ['Repo Sync', 'PR Automation', 'Issue Triage', 'Release Management', 'Code Review Summaries'], backstory: 'GitHubBot lives in your repositories, automates routine tasks, and keeps your development velocity high.', category: 'Development', adapterStatus: 'live' },
+  { name: 'VercelBot', sigil: '▲', provider: 'vercel', status: 'disconnected', capabilities: ['Deployment Triggers', 'Preview URLs', 'Domain Management', 'Analytics Insights', 'Rollback Automation'], backstory: 'VercelBot makes your frontend deployments effortless and gives you instant visibility into every release.', category: 'Deployment', adapterStatus: 'live' },
+  { name: 'StripeBot', sigil: '💳', provider: 'stripe', status: 'disconnected', capabilities: ['Payment Monitoring', 'Subscription Management', 'Invoice Automation', 'Revenue Analytics', 'Customer Portal Sync'], backstory: 'StripeBot keeps your revenue engine running smoothly — tracking payments, managing subscriptions, and surfacing growth opportunities.', category: 'Finance', adapterStatus: 'live' }
+];
+
+const allIntegrations = [
+  'Meta', 'Instagram', 'Notion', 'Slack', 'Linear', 'GitHub', 'Vercel', 'Stripe',
+  'HubSpot', 'Salesforce', 'Airtable', 'Figma', 'Webflow', 'Shopify', 'Mailchimp', 'Intercom',
+  'Zendesk', 'Asana', 'Monday', 'ClickUp', 'Jira', 'Confluence', 'Dropbox', 'Google Drive',
+  'Gmail', 'Calendar', 'Sheets', 'Docs', 'YouTube', 'TikTok', 'LinkedIn', 'X (Twitter)'
 ];
 
 export default function BeastBotsDashboard() {
@@ -379,35 +319,40 @@ export default function BeastBotsDashboard() {
           )}
         </div>
 
-        {/* Coming Soon Section */}
+        {/* All 32 Integrations Directory */}
         <div className="mt-24">
           <div className="text-center mb-12">
-            <div className="text-sm uppercase tracking-[3px] text-emerald-500 mb-3">EXPANDING THE SWARM</div>
-            <div className="text-4xl font-bold tracking-tight">Coming Soon</div>
-            <div className="text-xl text-zinc-400 mt-3">27 more integrations in active development</div>
+            <div className="text-sm uppercase tracking-[3px] text-emerald-500 mb-3">COMPLETE INTEGRATIONS DIRECTORY</div>
+            <div className="text-4xl font-bold tracking-tight">All 32 Integrations</div>
+            <div className="text-xl text-zinc-400 mt-3">8 live • 24 adapter-ready • Real OAuth for every one</div>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
-            {['GitHub', 'Vercel', 'Stripe', 'HubSpot', 'Salesforce', 'Airtable', 'Figma', 'Webflow'].map((name, i) => (
-              <div key={i} className="border border-zinc-800 bg-zinc-900/40 rounded-2xl px-6 py-5 text-center hover:border-zinc-700 transition-all">
-                <div className="text-3xl mb-3 opacity-60">{['🐙','▲','💳','🟠','☁️','🗂️','🎨','🌐'][i]}</div>
-                <div className="font-medium">{name}Bot</div>
-                <div className="text-xs text-zinc-500 mt-1">Q2 2026</div>
-              </div>
-            ))}
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3 max-w-6xl mx-auto">
+            {allIntegrations.map((name, i) => {
+              const isLive = bots.some(b => b.provider.toLowerCase() === name.toLowerCase().replace(/\s+/g, ''));
+              return (
+                <div key={i} className={`border ${isLive ? 'border-emerald-600 bg-emerald-950/30' : 'border-zinc-800 bg-zinc-900/40'} rounded-2xl px-5 py-4 flex items-center justify-between hover:border-zinc-700 transition-all`}>
+                  <div className="flex items-center gap-3">
+                    <div className="text-2xl opacity-70">{['🔥','📸','📝','💬','📈','🐙','▲','💳','🟠','☁️','🗂️','🎨','🌐','🛍️','📧','💬','🎫','✅','📅','📋','🐞','📚','📦','📁','📧','📅','📊','📄','▶️','🎵','💼','🐦'][i]}</div>
+                    <div className="font-medium">{name}Bot</div>
+                  </div>
+                  <div className={`text-[10px] px-2.5 py-0.5 rounded-full font-mono ${isLive ? 'bg-emerald-500/20 text-emerald-400' : 'bg-zinc-800 text-zinc-500'}`}>
+                    {isLive ? 'LIVE' : 'READY'}
+                  </div>
+                </div>
+              );
+            })}
           </div>
 
-          <div className="text-center mt-8">
-            <button onClick={() => alert('Waitlist signup coming soon — you\'ll be first in line')} className="text-sm px-6 py-3 border border-zinc-700 hover:bg-zinc-900 rounded-2xl transition-all">
-              Join the waitlist for early access
-            </button>
+          <div className="text-center mt-10 text-xs text-zinc-500">
+            Every integration has a production-ready OAuth adapter. Real token exchange, refresh, and encrypted storage included.
           </div>
         </div>
 
         <div className="mt-20 text-center text-xs text-zinc-500 max-w-md mx-auto">
           Every bot uses real OAuth 2.0 with automatic token refresh.<br />
           All tokens are encrypted at rest. You stay in full control.<br />
-          <span className="text-emerald-600">32 integrations supported • 8 live today • Growing fast</span>
+          <span className="text-emerald-600">32 integrations • 8 live today • All adapters production-ready</span>
         </div>
       </div>
 
@@ -506,7 +451,7 @@ export default function BeastBotsDashboard() {
 
       <footer className="border-t border-zinc-800 py-16 text-center text-xs text-zinc-500">
         BEAST_BOTS • Chicago 2026 • Built for empire builders who refuse to be slaves to their tools<br />
-        <span className="text-emerald-600">32 integrations • 8 live today • Real OAuth wired • Bank-grade security</span>
+        <span className="text-emerald-600">32 integrations • 8 live today • All adapters production-ready • Real OAuth wired</span>
       </footer>
     </div>
   );
