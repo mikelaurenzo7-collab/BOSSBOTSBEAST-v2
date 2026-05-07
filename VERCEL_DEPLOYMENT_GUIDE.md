@@ -1,9 +1,9 @@
-# Vercel Deployment Guide for BOSSBOTSBEAST
+# Vercel Deployment Guide
 
 1. Connect this repo to Vercel
-2. In Vercel Dashboard → Storage → Create **Vercel Postgres**
-3. Copy the `DATABASE_URL` and add it as an Environment Variable
-4. Add other required env vars from `.env.example`
+2. Add Vercel Postgres
+3. Copy DATABASE_URL into Environment Variables
+4. Add all variables from .env.example
 5. Deploy
 
-BeastOS is fully optimized for Vercel serverless + Postgres.
+BeastOS is optimized for Vercel.
