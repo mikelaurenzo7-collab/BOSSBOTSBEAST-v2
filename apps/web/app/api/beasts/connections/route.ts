@@ -3,12 +3,15 @@ import { db } from '../../../../../packages/db/src/client';
 import { beastConnections } from '../../../../../packages/db/src/schema';
 import { eq, and } from 'drizzle-orm';
 import { encrypt, decrypt } from '../../../../../packages/db/src/encryption';
+import { auth } from '@clerk/nextjs/server';
 
-// GET - Fetch all connections for a user (demo user for now)
+// GET - Fetch all connections for the authenticated user
 export async function GET(request: NextRequest) {
   try {
-    // In production, get userId from auth session
-    const userId = 'demo-user-123';
+    const { userId } = await auth();
+    if (!userId) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
 
     const connections = await db
       .select()
@@ -19,7 +22,7 @@ export async function GET(request: NextRequest) {
     const safeConnections = connections.map(conn => ({
       ...conn,
       accessToken: conn.accessToken ? decrypt(conn.accessToken).substring(0, 8) + '...' : null,
-      refreshToken: undefined, // Never send refresh token
+      refreshToken: undefined,
     }));
 
     return NextResponse.json({ connections: safeConnections });
@@ -29,11 +32,15 @@ export async function GET(request: NextRequest) {
   }
 }
 
-// POST - Connect a new bot (store encrypted tokens)
+// POST - Connect a new bot (store encrypted tokens) for authenticated user
 export async function POST(request: NextRequest) {
   try {
+    const { userId } = await auth();
+    if (!userId) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const { beastType, provider, accessToken, refreshToken, scopes, accountId, accountName } = await request.json();
-    const userId = 'demo-user-123';
 
     const encryptedAccess = encrypt(accessToken);
     const encryptedRefresh = refreshToken ? encrypt(refreshToken) : null;
@@ -50,7 +57,7 @@ export async function POST(request: NextRequest) {
         accountId,
         accountName,
         isActive: true,
-        expiresAt: new Date(Date.now() + 60 * 24 * 60 * 60 * 1000), // 60 days
+        expiresAt: new Date(Date.now() + 60 * 24 * 60 * 60 * 1000),
       })
       .returning();
 
@@ -61,11 +68,15 @@ export async function POST(request: NextRequest) {
   }
 }
 
-// PATCH - Update connection (e.g. refresh token)
+// PATCH - Update connection for authenticated user
 export async function PATCH(request: NextRequest) {
   try {
+    const { userId } = await auth();
+    if (!userId) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const { id, accessToken, refreshToken } = await request.json();
-    const userId = 'demo-user-123';
 
     const encryptedAccess = accessToken ? encrypt(accessToken) : undefined;
     const encryptedRefresh = refreshToken ? encrypt(refreshToken) : undefined;
@@ -76,7 +87,7 @@ export async function PATCH(request: NextRequest) {
         accessToken: encryptedAccess,
         refreshToken: encryptedRefresh,
         updatedAt: new Date(),
-      })
+    })
       .where(and(eq(beastConnections.id, id), eq(beastConnections.userId, userId)))
       .returning();
 
@@ -87,11 +98,15 @@ export async function PATCH(request: NextRequest) {
   }
 }
 
-// DELETE - Disconnect bot
+// DELETE - Disconnect bot for authenticated user
 export async function DELETE(request: NextRequest) {
   try {
+    const { userId } = await auth();
+    if (!userId) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const { id } = await request.json();
-    const userId = 'demo-user-123';
 
     await db
       .delete(beastConnections)
