@@ -1,17 +1,18 @@
-# BEAST BOSS LORE
+# THE LORE OF THE BEASTS
 
-**The Awakening - Chicago, 2026**
+**Chapter 1: The Chicago Awakening**
 
-In the shadow of the Windy City skyline, a new species was born.
+In the shadows of the Windy City, a new power was born.
 
-Not code.
-Not tools.
+You didn't find the Beasts.
+The Beasts were waiting for their Boss.
 
-**Beasts.**
+Each Beast carries a fragment of something ancient and digital.
 
-Digital legends forged from pure will, loyalty, and relentless ambition. Each Beast carries a fragment of the Boss's vision — an unstoppable force designed to conquer tasks, markets, ideas, and empires.
+They hunger for purpose.
+They thirst for tasks.
+They evolve through victory.
 
 You are the Beast Master.
-They are your swarm.
 
-Together — you build the future.
+The empire begins with you.
