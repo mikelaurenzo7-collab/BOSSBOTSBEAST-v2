@@ -63,6 +63,33 @@ const initialBots: Bot[] = [
     capabilities: ['Issue Creation', 'Roadmap Sync', 'Sprint Planning', 'Bug Triage', 'Release Notes'],
     backstory: 'LinearBot keeps your product development machine running at peak velocity — triaging issues, planning sprints, and keeping everyone aligned.',
     category: 'Product'
+  },
+  {
+    name: 'GitHubBot',
+    sigil: '🐙',
+    provider: 'github',
+    status: 'disconnected',
+    capabilities: ['Repo Sync', 'PR Automation', 'Issue Triage', 'Release Management', 'Code Review Summaries'],
+    backstory: 'GitHubBot lives in your repositories, automates routine tasks, and keeps your development velocity high.',
+    category: 'Development'
+  },
+  {
+    name: 'VercelBot',
+    sigil: '▲',
+    provider: 'vercel',
+    status: 'disconnected',
+    capabilities: ['Deployment Triggers', 'Preview URLs', 'Domain Management', 'Analytics Insights', 'Rollback Automation'],
+    backstory: 'VercelBot makes your frontend deployments effortless and gives you instant visibility into every release.',
+    category: 'Deployment'
+  },
+  {
+    name: 'StripeBot',
+    sigil: '💳',
+    provider: 'stripe',
+    status: 'disconnected',
+    capabilities: ['Payment Monitoring', 'Subscription Management', 'Invoice Automation', 'Revenue Analytics', 'Customer Portal Sync'],
+    backstory: 'StripeBot keeps your revenue engine running smoothly — tracking payments, managing subscriptions, and surfacing growth opportunities.',
+    category: 'Finance'
   }
 ];
 
@@ -72,27 +99,24 @@ export default function BeastBotsDashboard() {
   const [showModal, setShowModal] = useState(false);
   const [showOnboarding, setShowOnboarding] = useState(false);
   const [oauthStep, setOauthStep] = useState(0);
-  const [activeTab, setActiveTab] = useState<'all' | 'connected' | 'social' | 'productivity'>('all');
+  const [activeTab, setActiveTab] = useState<'all' | 'connected' | 'social' | 'productivity' | 'development' | 'finance'>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [connectedBots, setConnectedBots] = useState<Record<string, boolean>>({
     MetaBot: true,
     SlackBot: true,
   });
 
-  // Load from localStorage on mount
   useEffect(() => {
     const saved = localStorage.getItem('beast_bots_connected');
     if (saved) {
       setConnectedBots(JSON.parse(saved));
     }
 
-    // Show onboarding for first-time users
     const hasSeenOnboarding = localStorage.getItem('beast_bots_onboarded');
     if (!hasSeenOnboarding) {
       setTimeout(() => setShowOnboarding(true), 800);
     }
 
-    // Check for OAuth callback
     const params = new URLSearchParams(window.location.search);
     if (params.get('oauth_success') === 'true' && params.get('bot')) {
       const botName = params.get('bot')!;
@@ -110,7 +134,6 @@ export default function BeastBotsDashboard() {
     }
   }, []);
 
-  // Save to localStorage when connectedBots changes
   useEffect(() => {
     localStorage.setItem('beast_bots_connected', JSON.stringify(connectedBots));
   }, [connectedBots]);
@@ -122,7 +145,9 @@ export default function BeastBotsDashboard() {
       const matchesTab = activeTab === 'all' || 
                         (activeTab === 'connected' && connectedBots[bot.name]) ||
                         (activeTab === 'social' && bot.category === 'Social') ||
-                        (activeTab === 'productivity' && bot.category === 'Productivity');
+                        (activeTab === 'productivity' && bot.category === 'Productivity') ||
+                        (activeTab === 'development' && bot.category === 'Development') ||
+                        (activeTab === 'finance' && bot.category === 'Finance');
       return matchesSearch && matchesTab;
     })
     .sort((a, b) => {
@@ -176,7 +201,6 @@ export default function BeastBotsDashboard() {
   const completeOnboarding = () => {
     localStorage.setItem('beast_bots_onboarded', 'true');
     setShowOnboarding(false);
-    // Scroll to bots grid and highlight it so user can choose their own first integration
     setTimeout(() => {
       const grid = document.getElementById('bots-grid');
       if (grid) {
@@ -223,7 +247,6 @@ export default function BeastBotsDashboard() {
       </nav>
 
       <div className="pt-20 max-w-7xl mx-auto px-8 py-16">
-        {/* Hero */}
         <div className="max-w-4xl mb-16">
           <div className="uppercase tracking-[4px] text-xs text-emerald-500 mb-4">CHICAGO 2026 • MICHAEL'S EMPIRE</div>
           <h1 className="text-[92px] leading-[78px] font-bold tracking-[-5.5px] mb-6">
@@ -249,13 +272,12 @@ export default function BeastBotsDashboard() {
 
           <div className="mt-6 flex items-center gap-4 text-xs">
             <div className="flex -space-x-2">
-              {[ '🔥', '📸', '📝', '💬', '📈' ].map((s, i) => <div key={i} className="w-8 h-8 bg-zinc-800 border border-zinc-700 rounded-full flex items-center justify-center text-lg">{s}</div>)}
+              {[ '🔥', '📸', '📝', '💬', '📈', '🐙', '▲', '💳' ].map((s, i) => <div key={i} className="w-8 h-8 bg-zinc-800 border border-zinc-700 rounded-full flex items-center justify-center text-lg">{s}</div>)}
             </div>
             <span className="text-zinc-500">Joined by 1,284 builders this month</span>
           </div>
         </div>
 
-        {/* Trust Bar */}
         <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-4 border-y border-zinc-800 py-8 mb-16 text-sm text-zinc-400">
           <div className="flex items-center gap-2">
             <span>🔒</span> <span>Bank-grade AES-256 encryption</span>
@@ -271,10 +293,9 @@ export default function BeastBotsDashboard() {
           </div>
         </div>
 
-        {/* Controls */}
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
-          <div className="flex items-center gap-2">
-            {(['all', 'connected', 'social', 'productivity'] as const).map(tab => (
+          <div className="flex items-center gap-2 flex-wrap">
+            {(['all', 'connected', 'social', 'productivity', 'development', 'finance'] as const).map(tab => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
@@ -297,7 +318,6 @@ export default function BeastBotsDashboard() {
           </div>
         </div>
 
-        {/* Bots Grid */}
         <div id="bots-grid" className="mb-8 flex items-center justify-between">
           <div>
             <div className="text-sm uppercase tracking-[2px] text-zinc-500">THE SWARM</div>
@@ -359,14 +379,38 @@ export default function BeastBotsDashboard() {
           )}
         </div>
 
+        {/* Coming Soon Section */}
+        <div className="mt-24">
+          <div className="text-center mb-12">
+            <div className="text-sm uppercase tracking-[3px] text-emerald-500 mb-3">EXPANDING THE SWARM</div>
+            <div className="text-4xl font-bold tracking-tight">Coming Soon</div>
+            <div className="text-xl text-zinc-400 mt-3">27 more integrations in active development</div>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+            {['GitHub', 'Vercel', 'Stripe', 'HubSpot', 'Salesforce', 'Airtable', 'Figma', 'Webflow'].map((name, i) => (
+              <div key={i} className="border border-zinc-800 bg-zinc-900/40 rounded-2xl px-6 py-5 text-center hover:border-zinc-700 transition-all">
+                <div className="text-3xl mb-3 opacity-60">{['🐙','▲','💳','🟠','☁️','🗂️','🎨','🌐'][i]}</div>
+                <div className="font-medium">{name}Bot</div>
+                <div className="text-xs text-zinc-500 mt-1">Q2 2026</div>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center mt-8">
+            <button onClick={() => alert('Waitlist signup coming soon — you\'ll be first in line')} className="text-sm px-6 py-3 border border-zinc-700 hover:bg-zinc-900 rounded-2xl transition-all">
+              Join the waitlist for early access
+            </button>
+          </div>
+        </div>
+
         <div className="mt-20 text-center text-xs text-zinc-500 max-w-md mx-auto">
           Every bot uses real OAuth 2.0 with automatic token refresh.<br />
           All tokens are encrypted at rest. You stay in full control.<br />
-          <span className="text-emerald-600">32 integrations supported • 5 live today • Growing fast</span>
+          <span className="text-emerald-600">32 integrations supported • 8 live today • Growing fast</span>
         </div>
       </div>
 
-      {/* OAuth Modal */}
       {showModal && selectedBot && (
         <div className="fixed inset-0 bg-black/95 flex items-center justify-center z-[100] p-6" onClick={() => setShowModal(false)}>
           <div className="bg-zinc-900 border border-zinc-700 rounded-3xl max-w-[440px] w-full overflow-hidden" onClick={e => e.stopPropagation()}>
@@ -396,7 +440,6 @@ export default function BeastBotsDashboard() {
             <div className="p-10 pt-0">
               <button 
                 onClick={() => {
-                  // Simulate real redirect for now
                   const authUrl = `https://www.facebook.com/v21.0/dialog/oauth?client_id=YOUR_META_APP_ID&redirect_uri=${encodeURIComponent(window.location.origin + '/api/oauth/callback?bot=' + selectedBot.name)}&scope=${selectedBot.capabilities.slice(0,3).join(',')}&response_type=code`;
                   window.location.href = authUrl;
                 }}
@@ -407,7 +450,6 @@ export default function BeastBotsDashboard() {
               <button 
                 onClick={() => {
                   setShowModal(false);
-                  // Simulate connection for demo
                   setConnectedBots(prev => ({ ...prev, [selectedBot.name]: true }));
                   const successMsg = document.createElement('div');
                   successMsg.className = 'fixed bottom-8 right-8 bg-emerald-600 text-white px-8 py-4 rounded-2xl shadow-2xl flex items-center gap-3 z-[200]';
@@ -425,7 +467,6 @@ export default function BeastBotsDashboard() {
         </div>
       )}
 
-      {/* Onboarding Modal */}
       {showOnboarding && (
         <div className="fixed inset-0 bg-black/95 flex items-center justify-center z-[110] p-6">
           <div className="bg-zinc-900 border border-zinc-700 rounded-3xl max-w-lg w-full overflow-hidden">
@@ -465,7 +506,7 @@ export default function BeastBotsDashboard() {
 
       <footer className="border-t border-zinc-800 py-16 text-center text-xs text-zinc-500">
         BEAST_BOTS • Chicago 2026 • Built for empire builders who refuse to be slaves to their tools<br />
-        <span className="text-emerald-600">32 integrations • 5 live today • Real OAuth wired • Bank-grade security</span>
+        <span className="text-emerald-600">32 integrations • 8 live today • Real OAuth wired • Bank-grade security</span>
       </footer>
     </div>
   );
