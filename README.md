@@ -1,8 +1,22 @@
-# BOSSBOTSBEAST 🐲
+# BOSSBOTSBEAST
 
-**BeastOS — The Sovereign AI Workforce Platform**
+**BeastOS** — *Forge Your Digital Empire*
 
-Forge, evolve, and command an army of self-improving digital beasts that work for you 24/7.
+The ultimate sovereign AI workforce platform. Build, deploy, and evolve unstoppable **Beasts** — autonomous digital employees that work for you 24/7.
 
-## Vision
-Build the future of work: Autonomous AI employees that learn, adapt, and deliver results while you stay in full control.
+## Why BeastOS?
+- Fully sovereign: Your agents, your data, your rules
+- Evolving intelligence with memory graphs and XP progression
+- Production-ready on Vercel + Postgres
+- Mythic architecture with real personality and purpose
+
+## Quick Start
+
+```bash
+git clone https://github.com/mikelaurenzo7-collab/BOSSBOTSBEAST-v2.git
+cd BOSSBOTSBEAST-v2
+pnpm install
+pnpm dev
+```
+
+[VERCEL_DEPLOYMENT_GUIDE.md](VERCEL_DEPLOYMENT_GUIDE.md) | [BEAST_BOSS_LORE.md](BEAST_BOSS_LORE.md)
