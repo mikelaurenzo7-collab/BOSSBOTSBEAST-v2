@@ -176,11 +176,17 @@ export default function BeastBotsDashboard() {
   const completeOnboarding = () => {
     localStorage.setItem('beast_bots_onboarded', 'true');
     setShowOnboarding(false);
-    // Auto-open first bot connection
+    // Scroll to bots grid and highlight it so user can choose their own first integration
     setTimeout(() => {
-      const firstBot = bots[0];
-      connectBot(firstBot);
-    }, 400);
+      const grid = document.getElementById('bots-grid');
+      if (grid) {
+        grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        grid.classList.add('ring-2', 'ring-emerald-500/50');
+        setTimeout(() => {
+          grid.classList.remove('ring-2', 'ring-emerald-500/50');
+        }, 2200);
+      }
+    }, 300);
   };
 
   const connectedCount = Object.keys(connectedBots).length;
@@ -292,7 +298,15 @@ export default function BeastBotsDashboard() {
         </div>
 
         {/* Bots Grid */}
-        <div id="bots-grid" className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+        <div id="bots-grid" className="mb-8 flex items-center justify-between">
+          <div>
+            <div className="text-sm uppercase tracking-[2px] text-zinc-500">THE SWARM</div>
+            <div className="text-4xl font-bold tracking-tight">Available Bots</div>
+          </div>
+          <div className="text-sm text-zinc-500">Click any bot to connect via real OAuth</div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
           {filteredBots.length > 0 ? (
             filteredBots.map((bot, index) => {
               const isConnected = connectedBots[bot.name] || false;
@@ -422,7 +436,7 @@ export default function BeastBotsDashboard() {
 
               <div className="space-y-4 text-left mb-10">
                 {[ 
-                  { num: '1', title: 'Choose your integration', desc: 'Pick from 32 supported platforms' },
+                  { num: '1', title: 'Choose your integration', desc: 'Pick from 32 supported platforms — start with what you use most' },
                   { num: '2', title: 'Authorize with one click', desc: 'Secure OAuth — we never see your password' },
                   { num: '3', title: 'Your bot is live', desc: 'It starts working immediately and learns over time' }
                 ].map((step, i) => (
@@ -440,7 +454,7 @@ export default function BeastBotsDashboard() {
                 onClick={completeOnboarding}
                 className="w-full py-5 bg-white text-black font-bold text-sm tracking-wider rounded-3xl hover:bg-zinc-200 transition-all"
               >
-                LET'S CONNECT MY FIRST BOT
+                LET'S BROWSE THE SWARM
               </button>
 
               <div className="text-[10px] text-zinc-500 mt-6">No credit card required • Cancel anytime • Your data stays yours</div>
@@ -451,7 +465,7 @@ export default function BeastBotsDashboard() {
 
       <footer className="border-t border-zinc-800 py-16 text-center text-xs text-zinc-500">
         BEAST_BOTS • Chicago 2026 • Built for empire builders who refuse to be slaves to their tools<br />
-        <span className="text-emerald-600">32 integrations • 1 perfect bot each • Zero compromise • Real OAuth wired • Bank-grade security</span>
+        <span className="text-emerald-600">32 integrations • 5 live today • Real OAuth wired • Bank-grade security</span>
       </footer>
     </div>
   );
