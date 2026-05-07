@@ -1,21 +1,14 @@
 {
   "name": "bossbotsbeast",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "turbo dev",
     "build": "turbo build",
-    "start": "turbo start",
-    "lint": "turbo lint",
-    "db:generate": "turbo db:generate"
+    "start": "turbo start"
   },
   "devDependencies": {
-    "turbo": "latest",
-    "typescript": "^5.5.0",
-    "@types/node": "^20"
+    "turbo": "latest"
   },
-  "packageManager": "pnpm@9.1.0",
-  "engines": {
-    "node": ">=20"
-  }
+  "packageManager": "pnpm@9.0.0"
 }
