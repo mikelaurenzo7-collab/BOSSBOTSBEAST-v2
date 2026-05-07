@@ -1,22 +1,27 @@
-# 🐲 BOSSBOTSBEAST
+# BOSSBOTSBEAST-v2
 
-**BEASTOS** — Sovereign AI Workforce Platform
+![BeastOS](https://via.placeholder.com/800x200/0a0a0a/ffffff?text=BEASTOS+-+Forge+Your+Empire)
 
-The most powerful, beautiful, and purposeful multi-agent system ever built for a single Boss.
+**BeastOS v1 — "The Awakening"**
 
-Your personal army of self-evolving AI Beasts that execute, learn, and dominate.
+The most ambitious sovereign AI workforce platform ever open-sourced.
 
-## Vision
-Build once. Command forever.
+You are the **Boss**.
+Your **Beasts** are autonomous, evolving, loyal digital titans that execute your will at scale.
 
-Beasts level up. Swarms coordinate. The empire grows.
+## Core Philosophy
+Sovereignty. Evolution. Dominance.
 
 ## Tech Stack
-- Next.js 15 + TypeScript
-- Turborepo
-- Drizzle + Vercel Postgres
-- tRPC + Tailwind + shadcn/ui
-- Vercel AI SDK
-- Mythic UI/UX
+- Turborepo + pnpm
+- Next.js 15 (App Router)
+- TypeScript
+- Drizzle ORM + Vercel Postgres
+- tRPC (typesafe API)
+- Tailwind + shadcn/ui
+- Beautiful mythic dark theme
 
-**Status: Fully Forged & Ready**
+## Status
+Fully built from zero with maximum creativity and attention to detail.
+
+**Ready to awaken your first Beast.**
