@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { UserButton } from '@clerk/nextjs';
+import { Toast, useToast } from '../components/Toast';
 
 interface WorkflowStep {
   beastType: string;
@@ -47,6 +48,7 @@ export default function SwarmCommander() {
   const [isExecuting, setIsExecuting] = useState(false);
   const [executionResult, setExecutionResult] = useState<any>(null);
   const [customSteps, setCustomSteps] = useState<WorkflowStep[]>([]);
+  const { toasts, showToast } = useToast();
 
   const executeSwarm = async (workflow: Workflow) => {
     setIsExecuting(true);
@@ -60,8 +62,15 @@ export default function SwarmCommander() {
       });
 
       const data = await res.json();
-      setExecutionResult(data);
+      
+      if (data.success) {
+        showToast(`Swarm "${workflow.name}" executed successfully!`, 'success');
+        setExecutionResult(data);
+      } else {
+        showToast(data.error || 'Execution failed', 'error');
+      }
     } catch (err: any) {
+      showToast(err.message || 'Network error', 'error');
       setExecutionResult({ error: err.message });
     } finally {
       setIsExecuting(false);
@@ -74,7 +83,6 @@ export default function SwarmCommander() {
 
   return (
     <div className="min-h-screen bg-zinc-950 text-white">
-      {/* Top Nav */}
       <nav className="border-b border-zinc-800 bg-zinc-950/80 backdrop-blur-xl sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-8 py-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
@@ -97,7 +105,7 @@ export default function SwarmCommander() {
         <div className="flex items-end justify-between mb-12">
           <div>
             <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-sm mb-4">
-              PHASE 2 LIVE
+              PHASE 3 POLISHED
             </div>
             <h1 className="text-7xl font-semibold tracking-tighter">Swarm Commander</h1>
             <p className="text-2xl text-zinc-400 mt-3 max-w-2xl">One trigger. Infinite autonomous actions across your entire stack.</p>
@@ -107,7 +115,6 @@ export default function SwarmCommander() {
           </div>
         </div>
 
-        {/* Preset Workflows */}
         <div className="mb-16">
           <div className="flex items-center justify-between mb-6">
             <div className="text-xl font-semibold">Ready-to-Run Swarms</div>
@@ -148,7 +155,6 @@ export default function SwarmCommander() {
           </div>
         </div>
 
-        {/* Execution Result */}
         {executionResult && (
           <div className="mb-16 bg-zinc-900 border border-emerald-500/30 rounded-3xl p-8">
             <div className="flex items-center gap-3 mb-6">
@@ -159,7 +165,6 @@ export default function SwarmCommander() {
           </div>
         )}
 
-        {/* Custom Builder */}
         <div className="border border-zinc-800 rounded-3xl p-12">
           <div className="text-xl font-semibold mb-8">Build Your Own Swarm</div>
           
@@ -237,6 +242,16 @@ export default function SwarmCommander() {
           Every execution is logged in your private activity vault. Real tokens used. Full audit trail.
         </div>
       </div>
+
+      {/* Toast notifications */}
+      {toasts.map(toast => (
+        <Toast 
+          key={toast.id} 
+          message={toast.message} 
+          type={toast.type} 
+          onClose={() => {}} 
+        />
+      ))}
     </div>
   );
 }
