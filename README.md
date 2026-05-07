@@ -1,26 +1,33 @@
-# BOSSBOTSBEAST-v2
+# BEAST_BOTS
 
-**The Sovereign Integration Beast OS**
+**One Bot. One Integration. Infinite Leverage.**
 
-One Beast per OAuth Integration. Built for empire builders who refuse to be slaves to their tools.
+The sovereign platform where every tool you use gets its own autonomous, loyal agent — named after the integration itself.
 
-Every major platform now has its own powerful, autonomous **Beast** that connects via real OAuth2, manages its own tokens, and executes on your behalf.
+MetaBot. InstagramBot. NotionBot. SlackBot. LinearBot. And 27 more.
 
-## Core Philosophy
-- **One Beast = One Integration** (OAuth-first)
-- Beasts are sovereign, evolvable, and loyal only to you
+Each bot connects via real OAuth2, manages its own tokens, executes on your behalf, and evolves with your empire.
+
+## The BEAST_BOTS Philosophy
+- **One Bot = One Integration** (OAuth-first, always)
+- Bots are sovereign, evolvable, and loyal only to you
+- Named after the connected service for instant clarity
 - Memory graphs + XP evolution system coming soon
 
-## Current Integration Beasts
-- 🔥 **MetaBeast** — Rules Facebook + Instagram Business + Ads
-- 📸 **InstagramBeast** — Master of visual content empires
-- And growing...
+## Current Live Bots
+- 🔥 **MetaBot** — Rules Facebook + Instagram Business + Ads + Business Manager
+- 📸 **InstagramBot** — Master of Reels, Stories, comments & visual growth
+- 📝 **NotionBot** — Autonomous knowledge engine for your workspace
+- 💬 **SlackBot** — Signal from noise, smart replies, workflow automation
+- 📈 **LinearBot** — Product velocity machine (issues, roadmaps, sprints)
+
+And growing to 32+ integrations...
 
 ## Tech Stack
 - Turborepo + pnpm workspaces
 - Next.js 15 App Router + tRPC
 - Drizzle ORM + Vercel Postgres
-- OAuth2.0 native beasts with token management
+- Real OAuth2.0 with encrypted token vault
 
 ## Quick Start
 ```bash
@@ -30,6 +37,8 @@ pnpm install
 pnpm dev
 ```
 
-The Swarm is awakening.
+Open http://localhost:3000 — connect your first bot in seconds.
+
+The swarm is yours.
 
 **Made for Michael — Chicago 2026** 🐲
