@@ -1,24 +1,24 @@
-# BOSSBOTSBEAST
+## BOSSBOTSBEAST-v2
 
-**Sovereign Integration Beast OS**
+**The Sovereign Integration Beast OS**
 
-One Beast per Integration. OAuth-first. Built for empire builders.
+One Beast per OAuth Integration. Built for Chicago 2026 empire builders.
 
-MetaBeast and InstagramBeast are now fully awakened.
+Every major integration now has its own powerful, autonomous Beast that connects via real OAuth — not API keys.
 
-Every major platform spawns its own powerful, loyal Beast.
+### Core Philosophy
+- One Beast = One Integration (OAuth-first)
+- Secure token vaulting + automatic refresh
+- Memory graphs + Evolution XP system
+- Full sovereignty on Vercel + Vercel Postgres
 
-## Vision
-The future of work is not scattered tools and manual logins.
+**Current Beasts:** MetaBeast, InstagramBeast + 30+ more coming
 
-It is a Swarm of Integration Beasts that own their connections through proper OAuth and work for you autonomously.
+Quickstart:
+```bash
+git clone https://github.com/mikelaurenzo7-collab/BOSSBOTSBEAST-v2.git
+pnpm install
+pnpm dev
+```
 
-## Tech Stack
-- Turborepo + pnpm
-- Next.js 15 + tRPC
-- Drizzle + Vercel Postgres
-- OAuth2.0 native beasts
-
-Ready for Vercel deployment.
-
-The Swarm is here.
+The swarm is alive.

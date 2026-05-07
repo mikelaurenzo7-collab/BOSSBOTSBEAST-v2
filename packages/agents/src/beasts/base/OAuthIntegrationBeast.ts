@@ -1,13 +1,15 @@
+// Base class for all OAuth-native Beasts
+
 export abstract class OAuthIntegrationBeast {
-  abstract name: string;
   abstract provider: string;
   abstract scopes: string[];
-  abstract sigil: string;
-  abstract backstory: string;
 
-  // OAuth flow methods will be implemented here later
-  async connect() {
-    // Placeholder for OAuth flow
-    console.log(`Connecting ${this.name}...`);
-  }
+  constructor(protected connectionId?: number) {}
+
+  abstract getCapabilities(): string[];
+  abstract execute(action: string, params: any): Promise<any>;
+
+  // Token management will be injected by connection manager
+  protected accessToken?: string;
+  protected refreshToken?: string;
 }
